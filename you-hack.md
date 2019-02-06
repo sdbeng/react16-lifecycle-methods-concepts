@@ -159,6 +159,28 @@ shouldComponentUpdate should always return a boolean — an answer to the qu
 
 But if you’re worried about wasted renders and other nonsense — shouldComponentUpdate is an awesome place to improve performance.
 
+A case would having a table with many many fields. The problem was that when the table re-rendered, each field would also re-render, slowing things down.
+
+shouldComponentUpdate allows us to say: only update if the props you care about change.
+
+But keep in mind that it can cause major **problems** if you set it and forget it, because your React component will not update normally. So use with caution.
+
+In our grid app, we’ve previously established that sometimes we are going to ignore the new value of this.props.numberOfBlocks. Default behavior says our component will still rerender, since it received new props. That’s wasteful.
+```
+shouldComponentUpdate(nextProps, nextState) {
+  // Only update if bricks change
+  return nextState.blocks.length > this.state.blocks.length;
+}
+```
+Now we say: the component should update only if the number of blocks in state change.
+
+**Most Common Use Case: Controlling exactly when your component will re-render.
+
+## ff
+
+
+## ff
+
 ## ff
 
 ## ff
