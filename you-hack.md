@@ -255,28 +255,30 @@ componentWillUnmount() {
 **Most Common Use Case for componentWillUnmount: Cleaning up any leftover debris from your component.
 
 ## Errors
-getDerivedStateFromError
+### getDerivedStateFromError
 Something broke.
 
 Not in your component itself, but one of its descendants.
 
 We want to show an error screen. The easiest way to do so is to have a value like this.state.hasError, which gets flipped to true at this point.
-
+```
 static getDerivedStateFromError(error) {
   return { hasError: true };
 }
+```
 Note that you must return the updated state object. Don’t use this method for any side effects. Instead, use the below componentDidCatch.
 
-Most Common Use Case for getDerivedStateFromError: Updating state to display an error screen.
+**Most Common Use Case for getDerivedStateFromError: Updating state to display an error screen.
 
-componentDidCatch
+### componentDidCatch
 Very similar to the above, in that it is triggered when an error occurs in a child component.
 
 The difference is rather than updating state in response to an error, we can now perform any side effects, like logging the error.
-
+```
 componentDidCatch(error, info) {
   sendErrorLog(error, info);
 }
+```
 error would be the actual error message (Undefined Variable blah blah blah ) and info would be the stack trace (In Component, in div, etc).
 
 Note that componentDidCatch only works for errors in the render/lifecycle methods. If your app throws an error in a click handler, it will not be caught.
