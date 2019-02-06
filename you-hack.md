@@ -211,7 +211,28 @@ Why? We’ll see in a second.
 
 
 
-## ff
+## componentDidUpdate
+Now, our changes have been committed to the DOM.
+
+In componentDidUpdate, we have access to three things: the previous props, the previous state, and whatever value we returned from getSnapshotBeforeUpdate.
+
+Completing the above example:
+```
+componentDidUpdate(prevProps, prevState, snapshot) {
+  this.bricks.pack();
+  if (snapshot.isAtBottomOfGrid) {
+    window.scrollTo({
+      top: this.grid.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  }
+}
+```
+First, we re-layout the grid, using the Bricks.js pack method.
+
+Then, if our snapshot shows the user was at the bottom of the grid, we scroll them down to the bottom of the new blocks.
+
+**Most Common Use Case for componentDidUpdate: Reacting (hah!) to committed changes to the DOM.
 
 ## ff
 
