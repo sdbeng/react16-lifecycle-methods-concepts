@@ -115,7 +115,37 @@ We then set an interval to add more blocks every two seconds, mimicking the load
 
 
 
-## ff
+## Updating
+### getDerivedStateFromProps
+Yep, this one again. Now, it’s a bit more useful.
+
+If you need to update your state based on a prop changing, you can do it here by returning a new state object.
+
+Again, hanging state based on props is not recommended. It should be considered a last resort. Ask yourself—do I need to store state? Can I not just derive the right functionality from the props themselves?
+
+That said, edge cases happen. Here’s some examples:
+
+resetting a video or audio element when the source changes
+refreshing a UI element with updates from the server
+closing an accordion element when the contents change
+Even with the above cases, there’s usually a better way to do it. But getDerivedStateFromProps will have your back when worst comes to worst.
+
+With our example app, let’s say our Grid component’s numberOfBlocks prop increases. But we’ve already “loaded” past more blocks than the new amount. There’s no point using the same value. So we do this:
+```
+static getDerivedStateFromProps(props, state) {
+  if (state.blocks.length > 0) {
+    return {};
+  }
+  return { blocks: createBlocks(props.numberOfBlocks) };
+}
+```
+If the current number of blocks we have in state exceeds the new prop, we don’t update state at all, returning an empty object.
+
+(One last point about static methods like getDerivedStateFromProps: you don’t have access to the component viathis. So we couldn’t access our grid ref, for example.)
+
+**Most Common Use Case: Updating state based on props, when the props themselves aren’t enough.
+
+
 
 
 ## ff
