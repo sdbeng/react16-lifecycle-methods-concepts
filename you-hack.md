@@ -176,7 +176,39 @@ Now we say: the component should update only if the number of blocks in state ch
 
 **Most Common Use Case: Controlling exactly when your component will re-render.
 
-## ff
+## render
+Same as before!
+
+## getSnapshotBeforeUpdate
+This method is a fun new addition.
+
+Note it’s called between render and the updated component actually being propagated to the DOM. It exists as a last-chance-look at your component with its previous props and state.
+
+Why? Well, there may be a delay between calling render and having your changes appear. If you need to know what the DOM is exactly at the time of integrating the result of the latest render call, here’s where you can find out.
+
+Here’s an example. Let’s say our team lead decided that if a user is at the bottom of our grid when new blocks are loaded, they should be scrolled down to the new bottom of the screen.
+
+In other words: when the grid expands, if they’re at the bottom, keep them there.
+```
+getSnapshotBeforeUpdate(prevProps, prevState) {
+    if (prevState.blocks.length < this.state.blocks.length) {
+      const grid = this.grid.current;
+      const isAtBottomOfGrid =
+        window.innerHeight + window.pageYOffset === grid.scrollHeight;
+      return { isAtBottomOfGrid };
+    }
+    return null;
+  
+```
+Here’s what this says: if the user has scrolled to the bottom, return an object like so: { isAtBottomOfGrid: true }. If they aren’t, return null.
+
+You should either return null or a value from getSnapshotBeforeUpdate.
+
+Why? We’ll see in a second.
+
+**Most Common Use Case: Taking a look at some attribute of the current DOM, and passing that value on to componentDidUpdate.
+
+
 
 
 ## ff
