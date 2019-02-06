@@ -234,6 +234,24 @@ Then, if our snapshot shows the user was at the bottom of the grid, we scroll th
 
 **Most Common Use Case for componentDidUpdate: Reacting (hah!) to committed changes to the DOM.
 
-## ff
+## Unmounting
+### componentWillUnmount
+It’s almost over.
+
+Your component is going to go away. Maybe forever. It’s very sad.
+
+Before it goes, it asks if you have any last-minute requests.
+
+Here you can cancel any outgoing network requests, or remove all event listeners associated with the component.
+
+Basically, clean up anything to do that solely involves the component in question — when it’s gone, it should be completely gone.
+
+In our case, we have one setInterval call from componentDidMount to tidy up:
+```
+componentWillUnmount() {
+  clearInterval(this.interval);
+}
+```
+**Most Common Use Case for componentWillUnmount: Cleaning up any leftover debris from your component.
 
 ## ff
