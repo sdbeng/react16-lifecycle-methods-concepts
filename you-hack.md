@@ -148,7 +148,16 @@ If the current number of blocks we have in state exceeds the new prop, we don’
 
 
 
-## ff
+## shouldComponentUpdate
+We have new props. Typical React dogma says that when a component receives new props, or new state, it should update.
+
+But our component is a little bit anxious and is going to ask permission first.
+
+Here’s what we get — a shouldComponentUpdate method, called with nextProps as the first argument, and nextState is the second.
+
+shouldComponentUpdate should always return a boolean — an answer to the question, “should I re-render?” Yes, little component, you should. The default is that it always returns true.
+
+But if you’re worried about wasted renders and other nonsense — shouldComponentUpdate is an awesome place to improve performance.
 
 ## ff
 
