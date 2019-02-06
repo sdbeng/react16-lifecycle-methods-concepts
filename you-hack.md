@@ -56,3 +56,16 @@ class Grid extends Component {
 We need the constructor to call createRef, to create a reference to the grid element, so we can pass it to bricks.js.
 
 You can also use the constructor for function binding, which is also optional. 
+
+**Most Common Use Case For Constructor: Setting up state, creating refs and method binding.**
+
+## ff
+
+## ff
+
+
+## ff
+
+## ff
+
+## ff
